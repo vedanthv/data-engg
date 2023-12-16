@@ -68,3 +68,8 @@ Here A is the downstream task of C and B is the upstream task of A. Task impleme
 **How does Data Engineer help in the process**
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/ad4ff9f1-05f7-48c1-852f-20c9fcd81b6c)
+
+### Creating DAGs
+
+Downstream and Upstream Tasks with DAG
+![image](https://github.com/vedanthv/data-engg/assets/44313631/526fb6cd-ef73-496d-8aef-2512dc22e85d)
