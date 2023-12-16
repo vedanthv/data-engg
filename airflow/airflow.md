@@ -73,3 +73,12 @@ Here A is the downstream task of C and B is the upstream task of A. Task impleme
 
 Downstream and Upstream Tasks with DAG
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/526fb6cd-ef73-496d-8aef-2512dc22e85d)
+
+### Airflow XComs For Information Sharing
+
+Airflow XCom allows us to push info from one task to other and another task can pull information from the XCon.
+
+Every Function's return value goes to XCom by default.
+
+
+
