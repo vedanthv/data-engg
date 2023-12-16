@@ -22,7 +22,7 @@
 
 9. Run ```airflow scheduler``` to start the scheduler.
 
-### Using Docker for Installation
+#### Using Docker for Installation
 
 1. For Windows, first setup and setup WSL2. Check out the [video](https://www.youtube.com/watch?v=YByZ_sOOWsQ&pp=ygUdaW5zdGFsbGluZyB3c2wyIG9uIHdpbmRvd3MgMTE%3D) here.
 
@@ -38,5 +38,33 @@
 
 7. Run Airflow : ```docker compose up```
 
+### Core Concepts
 
+What is Airflow?
+![image](https://github.com/vedanthv/data-engg/assets/44313631/8edfa98b-7119-4d66-b0fd-e6e6687a952a)
 
+What is a workflow?
+![image](https://github.com/vedanthv/data-engg/assets/44313631/48ef6fce-07e4-422c-9e63-022ec686cbfd)
+
+DAG, Task and Operator
+![image](https://github.com/vedanthv/data-engg/assets/44313631/3fc46745-e852-4007-bf76-820ae2c48c5a)
+
+Here A is the downstream task of C and B is the upstream task of A. Task implements an operator and DAG is a collection of operators working together.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/dd4617c9-1145-4b5a-9aae-72b84e72343a)
+
+### Task Architecture
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/c4861188-b5cf-4523-bf80-51079ca3f94e)
+
+### Complete Task Lifecycle
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/caebdbb0-96ff-4ec2-9361-f8621135425b)
+
+### Complete Airflow Architecture Design
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/898d4868-0e23-4111-aae6-976e4c35ba01)
+
+**How does Data Engineer help in the process**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/ad4ff9f1-05f7-48c1-852f-20c9fcd81b6c)
