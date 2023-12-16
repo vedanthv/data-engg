@@ -80,5 +80,8 @@ Airflow XCom allows us to push info from one task to other and another task can 
 
 Every Function's return value goes to XCom by default.
 
+Here is the [code](https://github.com/vedanthv/data-engg/blob/main/airflow/02-pythonOperator.py) for one value push into XComs.
+
+Here is the [code](https://github.com/vedanthv/data-engg/blob/main/airflow/03-xcom.py) for pushing two or more values with keys into XComs.
 
 
