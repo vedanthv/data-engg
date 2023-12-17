@@ -57,3 +57,34 @@ To store data in on heap memory we need to serialize the data.
 - Out of 32gb, around 300mb is used by spark for disaster recovery and cannot be used by the user or the processes.
 - Of the remaining (32gb - 300mb) we allocate 40% of the heap memory as the user memory and then 60% of the heap memory as the unified memory.
 - In unified memory 50% is used for scheduling and 50% of the memory is used for executing.
+
+### API Architecture in Spark
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/8624a26b-2757-44cf-8dfe-c62ad0bc3f40)
+
+Dataset = Best of RDD + Best Of DataFrame
+![image](https://github.com/vedanthv/data-engg/assets/44313631/03ca4c37-ea52-4a32-83ed-29c860ff0b7a)
+
+- RDDs were always stored on the on heap memory but dataframes can be stored on the off heap memory also.
+
+- All types of datasets here are immutable.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/81820aea-4e35-4844-b2dc-57d94bcf742d)
+
+- Strong Typed feature ensures certain things like mismatch in the datatypes is detected in compile time.
+
+### Transformations and Actions
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/dd340e15-a52a-4bc1-8d74-cee5a2e33aad)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/9c0eaada-5429-481b-a639-2903571ff9a2)
+
+### Lazy Evaluation and DAG Logic Flow
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/83769424-47af-45a5-b47d-f4c1acf3aaa6)
+
+### Narrow Transformation
+
+Each and every executor can work independently on the data and don't require any dependency from the others.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/caddbaaf-39be-4907-9722-abc1dc609a14)
