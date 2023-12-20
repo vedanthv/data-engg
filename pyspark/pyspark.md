@@ -88,3 +88,44 @@ Dataset = Best of RDD + Best Of DataFrame
 Each and every executor can work independently on the data and don't require any dependency from the others.
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/caddbaaf-39be-4907-9722-abc1dc609a14)
+
+### Wide Transformation
+
+This type of transformation involves the shuffling of data.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/0540bea6-e3b3-4f95-b111-9b035682af43)
+
+```df.collect``` is used to perform action after various transformations have been applied to the data.
+
+### On heap vs Off Heap Memory
+
+**On Heap Memory Architecture**
+
+Each and every executor has its own On Heap Memory
+![image](https://github.com/vedanthv/data-engg/assets/44313631/36dfd2f0-bd1d-44e3-9c0d-2dc98ac14292)
+
+**Off Heap Memory Architecture**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/94e2ed45-54e8-4cb1-9e26-053b9a8b77e0)
+
+The Off Heap Memory is managed by the OS and shared by all the executors when the on heap memory runs out of space.
+
+The performance can be hit when we use the On Heap Memory because in the middle of any process if the on heap memory is full, then the Garbage Colector has to scan theentire memory to check and remove the unwanted memory space and then resume the process again.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/b1c493c3-6071-4442-9133-50a799b29374)
+
+### Clusters in PySpark
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/0b23a605-1585-4cf2-83b0-117a41a45897)
+
+- If multiple users are using All Purpose Clusters the resources are shared between them.
+
+- It is used in notebooks where we have to check the output of every command after executing it.
+
+- Job Clusters are used for schedulle jobs and the clusters are created duing runtime.
+
+- Pools are used to create and combine multiple clusters where we can command how many clusters must be active all the time. So there is no bootup time and is used for cost cutting.
+
+### Cluster Modes
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/71d9774b-367c-48e3-bf67-b89f3693dafd)
