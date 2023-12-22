@@ -132,6 +132,71 @@ Again we don't need to mention any credentials in the notebook.
 
 ### Managing the Secrets Using Secret Scope
 
+#### Creating a Secret Scope
 
+- Go to the Databricks Home Page
 
+- Add 'secrets/createScope' to the end of the URL.
+
+- Add secret scope name and then select all users.
+
+- Add the Vault URL and Resource Id that can be got from the Key Vault on Azure (Home/key-vault/properties)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/2adb5d54-0a96-4ac1-b723-52f179a57874)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/dbe934a9-98c7-41bc-ad2a-1909e4dddf1f)
+
+**Databricks Secrets Utility**
+
+To list the name of the secret scope : ```dbutils.secrets.list(scope = formula1-scope)```
+
+To check if a key is a secret scope use : ```dbutils.secrets.get(scope = 'formula1-scope',key = 'fomula1-dl-account-key')```
+
+### Adding the Secret Scope to the Cluster
+
+To add the access key to the cluster add the following to the spark config ```fs.azure.account.key.formula1dl.dfs.core.windows.net{{secrets/formula1-scope/formula1dl-account-key}}```
+
+Any notebook that has access to the cluser will have access to the ADLS Storage.
+
+### DBFS Root
+
+- The deployment created a default Azure Blob Storage and mounted that to DBFS. So we could run DBFS or Databricks File System utilities to interact with the Azure Blob Storage from the Databricks workspace.
+  
+- DBFS or Databricks File System here, is a distributed file system mounted on the Databricks workspace.
+  
+- This can be accessed from any of the Databricks Clusters created in this workspace.
+
+- It's just an abstraction layer on top of the Azure Object Storage.
+
+- The key takeaway here is that, DBFS is simply a file system that provides distributed access to the data stored in Azure storage.
+
+- It's not a storage solution in itself. The storage here is the Azure Blob Storage, and this is the default storage that's created when the Databricks workspace was deployed.
+  
+- This DBFS mount on the default Azure Blob Storage is called DBFS Root. As we said, DBFS Root is backed by Azure Blob Storage in the databricks created Resource Group.
+  
+- You can access one of the special folders within DBFS Root called File Store via the Web User Interface.
+
+- You can use this as a temporary storage, for example, to store any images to be used in notebooks or some data to play with quickly.
+  
+- Databricks also stores query results from commands such as display in DBFS Root. Similar to Hive, Databricks also allows us to create both managed and external tables.
+  
+- If you create a managed table without specifying the location for the database, that data will also be stored in DBFS Root, i.e. the default location for managed tables is DBFS Root. But you can change that during the database creation.
+  
+- Even though DBFS Root is the default storage for Databricks, it's not the recommended location to store customer data.
+
+- When you drop the Databricks workspace, this storage also gets dropped, which is not what you would want for the customer data.
+
+- Instead, we can use an external Data Lake, fully controlled by the customer and we can mount that to the workspace.
+
+**Implementation**
+
+The DBFS Console is hidden. First go to the top right 'az_admin@gmail.com' and click it.
+
+Then Click on Admin Console >> Workplace Settings >> Search For DBFS >> Enable DBFS Browser >> Refresh the Browser
+
+Now Go to the Data tab and Click Browse DBFS >> Click FileStore.
+
+The files that are in the FileStore can be used by all the users of the workspace.
+
+### Databricks Mounts
 
