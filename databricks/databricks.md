@@ -80,3 +80,58 @@ Multi Node - Has Main Node and Worker Nodes
 
 - Can be set by the administrators to limit the use of clusters that extend beyond a certain budget or memory constraint.
 - Simplifies the UI
+
+### Azure Databricks Pricing Calculation
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/194ba704-5333-4235-a861-f7e8c7e11df6)
+
+### Accessing Azure Data Lake Storage
+
+- Access Keys
+- Azure Active Directory
+- Service Principal
+- Cluster Scoped Auth
+- Session Scoped Auth
+
+**Access Keys**
+![image](https://github.com/vedanthv/data-engg/assets/44313631/678d6b93-a60e-405d-8217-7852ffa84f46)
+
+**Shared Access Signature**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/5f9ca380-1627-4c64-b106-80ed5e0b683e)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/744b294f-f01f-4f3c-aeaa-829ef8679bab)
+
+**Service Principal**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/be9db54e-ea32-4959-a02b-7c41a3bb0811)
+
+**Steps**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/90f3b5fc-6cee-42a7-bdfa-6a5f26ec6307)
+
+**Cluster Scoped Authentication**
+
+**Session Scoped Vs Cluster Scoped Authentication**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/1cd5a112-9b6b-4444-b78a-94955e467b08)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/596b97b0-5cae-4a97-8762-eb9813ac29b6)
+
+We need to add the same credentials as in Access Keys but in the Spark Config text area of the cluster itself.
+
+Now when we remove the config from the notebook with Access Keys we can still access the notebooks.
+
+**AAD Credential Passthrough**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/ce6d7777-9bd3-43b9-9976-4c00badefb12)
+
+Now even if we are the owner of the storage account, we can't access the data without creating a role that gives the **Storage Blob Contributor Access**
+
+Again we don't need to mention any credentials in the notebook.
+
+### Managing the Secrets Using Secret Scope
+
+
+
+
