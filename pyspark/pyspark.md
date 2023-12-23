@@ -129,3 +129,7 @@ The performance can be hit when we use the On Heap Memory because in the middle 
 ### Cluster Modes
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/71d9774b-367c-48e3-bf67-b89f3693dafd)
+
+### Spark Architecture Diagram
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/3186a6a2-5521-481a-9de1-1853087a9031)
