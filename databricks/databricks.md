@@ -224,6 +224,4 @@ The files that are in the FileStore can be used by all the users of the workspac
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/34076c8c-2677-4d95-bd86-de0b4a7cf855)
 
-Code for Mounting Azure Data Lake Storage Gen2 : [Code]()
-
-
+Mounting Azure Data Lake Storage Gen2 : [Code](https://github.com/vedanthv/data-engg/blob/main/databricks/8.mount_adls_containers_for_project%20(1).py)
