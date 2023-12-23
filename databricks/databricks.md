@@ -200,3 +200,30 @@ The files that are in the FileStore can be used by all the users of the workspac
 
 ### Databricks Mounts
 
+- We said that we shouldn't be using DBFS Root for keeping customer data.
+- Now the question becomes if we can't use DBFS Root as the storage for customer data, where do we store that?
+- Customers can create separate Azure Blob Storage or Azure Data Lake storage accounts in their subscription and keep the data in them.
+- In this Architecture, when you delete the Databricks workspace, the customer data still stays without being untouched.
+- In order to access the storage, we can use the ABFS protocol like we did before in the previous section of the course.
+- But as you saw previously, this approach is tedious for two reasons.
+- Firstly, we need to deal with those along ABFS URLs rather than the file system semantics to access the files.
+- Secondly, every time we'll have to use the credentials to authenticate to the storage accounts before accessing the data from them.
+- To make this experience better, Databricks allows us to mount these storage accounts to DBFS. We specify the credential when the storage is mounted.
+- Once it's mounted, everyone who has access to the workspace can access the data without providing the credentials.
+- Also, they will be able to use the file system semantics rather than the long URLs. In summary, Databricks mounts offer some important benefits to the storage solution in Databricks.
+- Once the Azure object storage solution, such as Azure Data Lake or the Blob storage has been mounted onto the Databricks workspace, you can access the mount points without specifying the credentials.
+- This allows for accessing the Azure storage from Databricks using file semantics rather than the long storage URLs. You can treat a mount point as the same as mapping another drive to your computer.
+- DBFS is just an abstraction layer and it still stores the files to the Azure storage, so you get all the benefits such as different performance tiers, replication, massive storage etc., as you would generally get from Azure storage.
+- This was the recommended solution from Databricks to access Azure Data Lake until the introduction of Unity Catalog, which became generally available around end of 2022.
+- Databricks now recommends using the Unity Catalog for better security, but most projects I see today are still using Databricks Mounts to access the data. So please be familiar with this approach and you will come across it in your projects.
+- In case you are wondering how to access data using Unity Catalog, Once a workspace has been configured with Unity Catalog, you can simply use the ABFS protocol to access the Data Lake like we have been doing so far.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/18c291e8-2116-41bc-9721-1d2d3f93f526)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/1320ecd4-c74f-4d8e-9aa2-8059ee53c2c2)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/34076c8c-2677-4d95-bd86-de0b4a7cf855)
+
+Code for Mounting Azure Data Lake Storage Gen2 : [Code]()
+
+
