@@ -96,6 +96,44 @@ Astro project configurations.
 
 More type of testing like backtesting dependencies during updates is [here](https://docs.astronomer.io/astro/cli/test-your-astro-project-locally)
 
+### How Everything Works?
+
+Step 1 : 
+![image](https://github.com/vedanthv/data-engg/assets/44313631/15b456bc-9483-4f16-948a-bb668ae16212)
+
+Step 2 : 
+![image](https://github.com/vedanthv/data-engg/assets/44313631/a6ea0d2f-44b3-4ead-9786-450ffed0839a)
+
+Scheduler processes the DAG and we may need to wait upto 5 min before getting the new DAG on the Airflow UI.
+
+Step 3:
+![image](https://github.com/vedanthv/data-engg/assets/44313631/482ac766-06b0-4ee2-b7ed-f3dbf34ff5f4)
+The scheduler creates the DAGRun Object that has the states running.
+
+Step 4:
+![image](https://github.com/vedanthv/data-engg/assets/44313631/08ca70cb-5b40-40d3-a36f-bd36f461e25f)
+
+The scheduler then creates the task instance which is instance of the task at a certain time and it has the state scheduled.
+
+Step 5:
+![image](https://github.com/vedanthv/data-engg/assets/44313631/8704266e-8ca1-4ce2-93b3-2bc1adfc3853)
+
+Now the Task Instance is queued and the scheduler sends the taskInstance object to the executor that executes it and the state of the task is complete.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/9c62f248-c618-4257-9c7d-3da847e7b3b1)
+
+Now either the task status is success or failed and it updates the state accordingly.
+
+Then the scheduler checks whether the work is done or not.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/7cd5614e-cb73-4d13-8ec0-0d33d48915d6)
+
+Finally the Airflow UI is updated.
+
+Check the [video](https://academy.astronomer.io/path/airflow-101/astro-runtime-airflow-concepts/1273942) also.
+
+
+
 
 
 
