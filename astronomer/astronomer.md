@@ -132,7 +132,53 @@ Finally the Airflow UI is updated.
 
 Check the [video](https://academy.astronomer.io/path/airflow-101/astro-runtime-airflow-concepts/1273942) also.
 
+## Module 3  : Airflow UI
 
+![image](https://github.com/vedanthv/data-engg/assets/44313631/1576865a-6152-4c4d-b25e-4cc7b5c43d81)
+
+Here the long vertical line is the DagRun Object and the short boxes are the Task Instances.
+
+Landing time view illustrates how much time each task takes and we can check if optimizations applied are efficient or not.
+
+**Gantt Charts**
+
+These charts show how much time it took to run the DAG. 
+
+Grey color means that the DAG was queued and green means the DAG was running and completed.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/1c066fde-edd0-4efe-8731-7daf0f0f176b)
+
+In this image, the second DAG took the longest to run.
+
+Quiz Questions
+
+Video : Monitor DAG Runs and Task Instances
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/cea548d2-1a18-4a2b-abcb-84640b806a7c)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/07bb4a31-c263-43bb-8ae6-fe4ebc86244d)
+
+Video: Overview Of DAG
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/208be62a-ce34-44b5-ad3c-2c6a86cf7c23)
+
+So total number of successful DAGs are 4.
+
+Same type of logic here as well. Upstream Failed is represented by the orange color.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/f75d186e-7977-4dae-a432-770cf0c8d3f0)
+
+### Debug and Rerun DAG
+
+Go to this UI page by going to the link ```http://localhost:8080/dagrun/list/?_flt_3_dag_id=example_dag_basic```
+
+Add filter equal to failed
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/9463298c-e08b-4625-ab73-e886b48edac9)
+
+Select the DAGs -> Click on Action -> Clear State to rerun the  DAGs
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/5a29ffcf-61e6-45de-9b64-5d11c6557860)
 
 
 
