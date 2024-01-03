@@ -1,3 +1,5 @@
+# Astronomer and Airflow
+
 ## Astro CLI
 
 ### What is Astro CLI?
@@ -180,9 +182,155 @@ Select the DAGs -> Click on Action -> Clear State to rerun the  DAGs
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/5a29ffcf-61e6-45de-9b64-5d11c6557860)
 
+## Module 4 : Simple DAG
+
+- Catchup : Catchup refers to the process of scheduling and executing all the past DAG runs that would have been scheduled if the DAG had been created and running at an earlier point in time.
+
+### Create DAG with Traditional Paradigm
+
+with is a context manager
+```
+from airflow import DAG
+from datetime import datetime
+
+with DAG('my_dag', start_date=datetime(2023, 1 , 1),
+         description='A simple tutorial DAG', tags=['data_science'],
+         schedule='@daily', catchup=False):
+```
+
+### Using the TaskAPI
+
+@dag is a decorator
+
+```
+from airflow.decorators import dag
+from datetime import datetime
+
+@dag(start_date=datetime(2023, 1, 1), description='A simple tutorial DAG', 
+     tags=['data_science'], schedule='@daily', catchup=False)
+def my_dag():
+    None
+
+my_dag()
+```
+
+### Defining a Python Operator Task
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/3d99e0b0-2f56-46f4-b371-92237ae0bd0c)
+
+### DAG without context manager with
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/ee4216ff-7d7b-47a9-b5e1-a5db44ff4d0b)
+
+Much simpler method with TaskFlowAPI
+
+```
+from airflow.decorators import dag, task
+from datetime import datetime
+
+@dag(start_date=datetime(2023, 1, 1), description='A simple tutorial DAG', 
+     tags=['data_science'], schedule='@daily', catchup=False)
+def my_dag():
+    
+    @task
+    def print_a():
+        print('hi from task a')
+```
+
+### Chain Dependencies
+
+First Import ```from airflow.util.helpers imoprt chain```
+
+```task_a >> [task_b,task_c,task_d] >> task_e```
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/499d250a-7fd6-4c8b-979b-595b9d0797ff)
+
+```chain(task_a,[task_b,task_c],[task_d,task_e])```
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/dfca384f-1c14-41ce-9cce-172c9df79bb6)
+
+### Setting Default Args
+
+```
+default_args = {
+    'retries': 3,
+}
+```
+
+### Dependencies with Task Flow API
+
+```
+from airflow.decorators import dag, task
+from datetime import datetime
+from airflow.utils.helpers import chain
 
 
+@dag(start_date=datetime(2023, 1 , 1),
+         description='A simple tutorial DAG', tags=['data_science'],
+         schedule='@daily', catchup=False)
+def my_dag():
+
+    @task
+    def print_a():
+        print('hi from task a')
+    
+    @task
+    def print_b():
+        print('hi from task b')
+
+    @task
+    def print_c():
+        print('hi from task c')
+
+    @task
+    def print_d():
+        print('hi from task d')
+
+    @task
+    def print_e():
+        print('hi from task e')
 
 
+    print_a() >> print_b() >> print_c() >> print_d() >> print_e()
 
+my_dag()
 
+```
+
+### Assignment : Creating DAG with Bash Operator
+
+The DAG should look like this:
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/ec52175b-ff94-4b34-b9cd-fa2556a34b8d)
+
+```
+from airflow import DAG
+from datetime import datetime
+from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
+
+with DAG(dag_id='check_dag', schedule='@daily', 
+        start_date=datetime(2023, 1, 1), catchup=False,
+        description='DAG to check data', tags=['data_engineering']):
+    
+    create_file = BashOperator(
+        task_id='create_file',
+        bash_command='echo "Hi there!" >/tmp/dummy'
+    )
+
+    check_file_exists = BashOperator(
+        task_id='check_file_exists',
+        bash_command='test -f /tmp/dummy'
+    )
+
+    read_file = PythonOperator(
+        task_id='read_file',
+        python_callable=lambda: print(open('/tmp/dummy', 'rb').read())
+    )
+
+    create_file >> check_file_exists >> read_file
+```
+
+Quiz Questions
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/dacf940f-5e52-4f97-ac89-1d6e122fb595)
