@@ -1,6 +1,7 @@
+
 # Astronomer and Airflow
 
-## Astro CLI
+## Module 1
 
 ### What is Astro CLI?
 
@@ -33,6 +34,8 @@ into the registry.
 Docs : [Click Here](https://docs.astronomer.io/astro/cli/install-cli?tab=windowswithwinget#install-the-astro-cli)
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/3a17ef3d-5fe5-4418-94c0-1351069f1187)
+
+## Module 2
 
 ### Creating a Project
 
@@ -334,3 +337,106 @@ with DAG(dag_id='check_dag', schedule='@daily',
 Quiz Questions
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/dacf940f-5e52-4f97-ac89-1d6e122fb595)
+
+## Module 5 : Sheduling DAGs
+
+### What is a DAGRun?
+
+- When the scheduler schedules the tasks to run, a DAG Run object is created with ```data_interval_start``` and ```data_interval_end```
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/ac9118ac-62fb-4177-beef-8558e21bd995)
+
+First the DAGRun is is in the Queued state, once the first task runs its in the running state.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/da907040-0a9d-4dc0-a10e-603c095cfeba)
+
+Final task state determines the end state of the DAGRun.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/95ca158a-4985-4a72-90e1-3bc390797a2c)
+
+**Properties of DAG Run**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/08649391-4997-4076-a9ab-8202d8a662c2)
+
+### How DAGs are scheduled?
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/f83699c2-18cf-458e-8358-c05c9eabd0f9)
+
+**Example of three DAG runs**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/9d6b73d0-d3ef-4842-a53b-b3a4e7f7e743)
+
+**Thing to Remember**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/05db8110-e7b2-47f4-83cd-765f863b346a)
+
+### The ```start_date``` parameter
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/cd8aa7a7-18d7-4db4-8306-2bc052229285)
+
+#### How it works?
+
+**Scenario I**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/f8bdc6a7-6f97-4c66-8163-94f80c3330d7)
+
+- Let's say there are three dag runs from start date until now.
+
+- Today if we hit the trigger on the dag...
+
+- Then all the other previous dag runs from the start date till now are run.
+
+- This happens only for the first time that we run the dag.
+
+**Scenario II**
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/960914cf-4ad5-4703-bedb-1edf4497f1b9)
+
+- Let's say we made a mistake and stopped the DAG on 2nd Jan 2022,
+
+- We fix it and then restart the DAG.
+
+- In this case Airflow backfills the DAG from the last run and not the start date.
+
+- So the dag is backfilled only from 2nd Jan and not 1st Jan.
+
+### Cron Expressions for ```schedule_interval```
+
+use [crontab.guru](crontab.guru) website to construct cron expressions
+
+cron expressions take into account day light saving time.
+
+how to trigger dags every three days?
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/fad972bc-c576-4844-9840-8e7fc662c794)
+
+Check the [link](https://academy.astronomer.io/path/airflow-101/astro-runtime-scheduling/1555646) for a complete summary.
+
+### Concept Of Catchup
+
+The scheduler runs all the previous DAGRuns between now and the date @ which the DAG was triggeres or the start date of the DAG.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/18d0a9fb-3630-49ad-b887-9aaafa6273cf)
+
+### Backfilling Process
+
+In the figure below we can see that there are DAGRuns that are alreasy triggered and executed from start_date until now.
+
+But what if we want to trigger the DAGs that are before the start date?
+
+We can do this with the backfilling mechanism.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/a043a36f-0894-43e7-88be-185abcf379a0)
+
+### CLI Command to Backfill the DAG
+![image](https://github.com/vedanthv/data-engg/assets/44313631/33a826f4-b4a3-4853-8bbe-ac0f8b2761bd)
+
+### Quiz Questions
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/3cb036f8-1e90-47d9-800d-4f0ee656f94a)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/26efe313-a64a-46ea-94dd-8674f9a626e5)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/4ec48b0f-558f-44b0-b4a0-d83a63e95ae4)
+
+## Module 5 : Connections In Ariflow
