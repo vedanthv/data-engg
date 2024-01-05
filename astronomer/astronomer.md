@@ -439,4 +439,74 @@ We can do this with the backfilling mechanism.
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/4ec48b0f-558f-44b0-b4a0-d83a63e95ae4)
 
-## Module 5 : Connections In Ariflow
+## Module 5 : Connections In Airflow
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/e8adae05-418f-4e4a-8194-c2007c5e8ed0)
+
+To Interact with external systems like APIs we need Connections. They are a set of parameters such as login and password that are encrypted.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/6eb58c81-c0f3-43e8-a08c-c4cd37d9e883)
+
+If we want to interact with a software appln via a connection we need to install its provider first. dbt has its own provider, snowflake has its provider...
+
+### How to create a connection?
+
+Go to Admin > Connections > Create New Connection (+ button)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/8bf6b66a-4ea4-4a30-af04-2f399a15bbd9)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/5746e495-6f65-433a-b15f-f51a46caba4a)
+
+Password is the API Key from Calendarific Docs
+
+After Clicking on Save the connecton appears on the page
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/8b60066e-f839-449e-8559-2e9b71e57395)
+
+Check out the [Registry](registry.astronomer.io) to check the docs and parameters for any tool.
+
+We can export environment variables using the .env file and give parameters there, no need UI for this. Check this [Snowflake Example](https://academy.astronomer.io/connections-101/1277466)
+
+To deploy the connections use ```astro deployment variable create --deployment-id <ID> --load --env .env```
+
+### Pain Points with Connections
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/471a7282-0e97-48c5-a586-c4d116d83777)
+
+#### Cannot share the connections from Dev to Prod Environment.
+
+With Astro we can create a **Connection Managementment Environment** to manage the connections.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/536bcd5f-bce5-4329-b8a8-887803ac5178)
+
+#### Specific Forms For Each Connection Type
+
+Astro unlike Airflow provides us with custom forms for each connection type.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/42ee370d-0927-4cea-b0f7-881dda5d40fb)
+
+#### There is no Inheritance Model
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/b9c29033-2bfc-4ad2-b8e6-25b6fe6da2c7)
+
+In the above image we can see that most of the parameters in Dev Deployment and Prod Deployment are identical except the DB name. But with Airflow we cannot inherit the variables.
+
+This is solved by Astro.
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/d49ce512-72af-4c66-9fd1-17bcbaa61b3f)
+
+#### There is no Secret Backend
+There is no secret vault storage that is encrypted in Airflow, we need to create our own but in Astro it comes in built.
+
+### Use Case : Sharing Connections wih=th Dev Deployment and Local Dev Environments
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/7e93f39d-4151-425b-8c05-e806bf32b23f)
+
+You can check out the [Snowflake Example](https://academy.astronomer.io/connections-101/1820300) of creating a Connection Management System in Astro Cloud, then enabling the local dev environments to access the secrets using a set of commands.
+
+### Quiz
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/88e672b2-3d62-4291-8f6e-f13738665e11)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/4ae5682b-772b-4dd3-be41-47f355c6323b)
+
