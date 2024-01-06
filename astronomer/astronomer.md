@@ -623,4 +623,6 @@ with DAG(
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/594ea56c-4618-444e-a30e-73ffd0d2ba9a)
 
+## Module 8 : Variables in Airflow
+
 
