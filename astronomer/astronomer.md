@@ -510,3 +510,119 @@ You can check out the [Snowflake Example](https://academy.astronomer.io/connecti
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/4ae5682b-772b-4dd3-be41-47f355c6323b)
 
+## Module 6 - XCom
+
+Suppose there are two tasks A and B. We want to send a file from A to B.
+
+We can use an external system like S3 bucket where task A can upload it to the bucket and then task B can download it.
+
+We can use a native way using XCom(Airflow Meta DB)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/912756d0-d44b-4eec-96bc-633f81fee0a0)
+
+### Properties of XCom
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/3d397af8-3de9-47cd-8ec9-592c8fa7d0ed)
+
+### Example Of XCom
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/2942607c-992c-4e3c-9fbd-77073ac84dbd)
+
+Go to Admin >> XCom We can see that the variable is created
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/103d6ff9-db38-40fd-829b-a539ba58fe52)
+
+### Pulling XCom Values with Specific Key
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/e4630af6-211b-45ac-9114-ed126397b0d0)
+
+Another [example](https://academy.astronomer.io/path/airflow-101/astro-runtime-xcoms-101/1555644)
+
+### Pulling Multiple Values @ once
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/bf03a922-5282-472f-9bbd-c9033988824f)
+
+Here we can see that keys for both the tasks are the same, this is allowed because the XComs is defined not only by key but the dag_id and task_id also
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/2902cee6-e5b2-4d7c-a38d-2ceeeb38a178)
+
+### Limitations of XCom
+
+If we use SQLLite, we can share at most one gb in a given XCom, for PostGres its 1 gb for a given Xcom.
+
+If we use MySQL, we can share atmost 64kb in a given XCom.
+
+**So XCom is great for small data and it must be JSON Serializable.**
+
+**Example DAG Covering All Concepts**
+
+```
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+import pendulum
+from airflow.models.taskinstance import TaskInstance as ti
+
+
+
+def _transform(ti: ti):
+   import requests
+   resp = requests.get(f'https://swapi.dev/api/people/1').json()
+   print(resp)
+   my_character = {}
+   my_character["height"] = int(resp["height"]) - 20
+   my_character["mass"] = int(resp["mass"]) - 13
+   my_character["hair_color"] = "black" if resp["hair_color"] == "blond" else "blond"
+   my_character["eye_color"] = "hazel" if resp["eye_color"] == "blue" else "blue"
+   my_character["gender"] = "female" if resp["gender"] == "male" else "female"
+   ti.xcom_push("character_info", my_character)
+
+def _transform2(ti: ti):
+   import requests
+   resp = requests.get(f'https://swapi.dev/api/people/2').json()
+   print(resp)
+   my_character = {}
+   my_character["height"] = int(resp["height"]) - 50
+   my_character["mass"] = int(resp["mass"]) - 20
+   my_character["hair_color"] = "burgundy" if resp["hair_color"] == "blond" else "brown"
+   my_character["eye_color"] = "green" if resp["eye_color"] == "blue" else "black"
+   my_character["gender"] = "male" if resp["gender"] == "male" else "female"
+   ti.xcom_push("character_info", my_character)
+
+
+def _load(values):
+   print(values)
+
+with DAG(
+   'xcoms_demo_4',
+   schedule = None,
+   start_date = pendulum.datetime(2023,3,1),
+   catchup = False
+):
+   t1 = PythonOperator(
+       task_id = '_transform',
+       python_callable = _transform
+   )
+
+   t2 = PythonOperator(
+       task_id = 'load',
+       python_callable = _load,
+       op_args = ["{{ ti.xcom_pull(task_ids=['_transform','_transform2'], key='character_info') }}"]
+   )
+
+   t3 = PythonOperator(
+       task_id = '_transform2',
+       python_callable = _transform2,
+   )
+   [t1,t3] >> t2
+
+```
+
+### Quiz Answers
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/85ca1787-b9fa-416f-887e-4ff1dee82875)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/6b12b03f-632e-4506-b60c-e110db71433e)
+
+![image](https://github.com/vedanthv/data-engg/assets/44313631/594ea56c-4618-444e-a30e-73ffd0d2ba9a)
+
+
