@@ -1,9 +1,7 @@
 
 # Astronomer and Airflow
 
-## Module 1
-
-### What is Astro CLI?
+## Module 1 - Intro to Astro CLI
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/2f5e1fc3-f288-499b-adaa-6568e90cc7db)
 
@@ -35,7 +33,7 @@ Docs : [Click Here](https://docs.astronomer.io/astro/cli/install-cli?tab=windows
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/3a17ef3d-5fe5-4418-94c0-1351069f1187)
 
-## Module 2
+## Module 2 - Airflow Concepts
 
 ### Creating a Project
 
@@ -338,7 +336,7 @@ Quiz Questions
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/dacf940f-5e52-4f97-ac89-1d6e122fb595)
 
-## Module 5 : Sheduling DAGs
+## Module 6 : Sheduling DAGs
 
 ### What is a DAGRun?
 
@@ -510,7 +508,7 @@ You can check out the [Snowflake Example](https://academy.astronomer.io/connecti
 
 ![image](https://github.com/vedanthv/data-engg/assets/44313631/4ae5682b-772b-4dd3-be41-47f355c6323b)
 
-## Module 6 - XCom
+## Module 7 - XCom
 
 Suppose there are two tasks A and B. We want to send a file from A to B.
 
